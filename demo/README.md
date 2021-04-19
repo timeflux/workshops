@@ -6,6 +6,12 @@
 
 First, [install Timeflux](https://pypi.org/project/timeflux/) in a dedicated environment. Any Python version from 3.7 to 3.9 should work, although you _may_ encounter issues with Anaconda and Python 3.9. Miniconda works great.
 
+Then, install dependencies:
+
+```
+pip install -r requirements.txt
+```
+
 ## Running the demo
 
 Edit ``speller/main.yaml`` to reflect your acquisition system. If you do not have an EEG, you can try to uncomment the ``random.yaml`` line to generate artificial data.
