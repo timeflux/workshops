@@ -4,8 +4,7 @@
 
 ## Installation
 
-First, [install Timeflux](https://pypi.org/project/timeflux/) in a dedicated environment.
-Any version from Python 3.7 to 3.9 should work, although you _may_ encounter issues with Python 3.9. Miniconda works great.
+First, [install Timeflux](https://pypi.org/project/timeflux/) in a dedicated environment. Any Python version from 3.7 to 3.9 should work, although you _may_ encounter issues with Anaconda and Python 3.9. Miniconda works great.
 
 ## Running the demo
 
