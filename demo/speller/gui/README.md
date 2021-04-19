@@ -13,9 +13,9 @@ Label                           | Data
 ``training_begins``             | ``{ "targets": <string> }``
 ``focus_begins``                | ``{ "target": <char> }``
 ``focus_ends``                  | ``null``
-``block_begins``                | ``{ "target": <char|null> }``
+``block_begins``                | ``{ "target": <char\|null> }``
 ``round_begins``                | ``null``
-``flash_begins``                | ``{ "group": <array>, "includes_target": <bool|null> }``
+``flash_begins``                | ``{ "group": <array>, "includes_target": <bool\|null> }``
 ``flash_ends``                  | ``null``
 ``round_ends``                  | ``null``
 ``block_ends``                  | ``null``
