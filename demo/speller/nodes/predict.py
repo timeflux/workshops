@@ -261,7 +261,6 @@ class CumP300Classifier():
         return self
 
 
-    # TODO: reverse target and non-target!
     def predict_proba(self, erp_likelihood, character_flash):
         """Predict probability of each character after a new trial.
 
