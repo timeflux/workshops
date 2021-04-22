@@ -166,9 +166,6 @@ class Speller {
         set_css_var('--font-size-normal',  cell_size_off + 'px');
         set_css_var('--font-size-flash', cell_size_on + 'px');
         set_css_var('--font-size-focus', cell_size_on + 'px');
-
-
-
     }
 
     /**
