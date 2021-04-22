@@ -1,6 +1,6 @@
 import:
   - graphs/random.yaml
-  #- graphs/pyton.yaml
+  #- graphs/cyton.yaml
   #- graphs/hackeeg.yaml
   - graphs/record.yaml
 
