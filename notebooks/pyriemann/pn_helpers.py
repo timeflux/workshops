@@ -69,6 +69,7 @@ def plot_cov_mean(cov, labels, n=5):
         axes[0, i].set_yticks([])
         dist = distance_riemann(cov[r], mean_r)
         axes[0, i].set_xlabel("{:g}".format(dist))
+        axes[1, i].imshow(cov[l])
         axes[1, i].set_xticks([])
         axes[1, i].set_yticks([])
         dist = distance_riemann(cov[l], mean_l)
