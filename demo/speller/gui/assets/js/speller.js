@@ -55,7 +55,7 @@ class Speller {
             targets: 'TIMEFLUX',
             groups: 0,
             repetitions: {
-                train: 3,
+                train: 8,
                 test: 6
             },
             grid: {
@@ -95,7 +95,7 @@ class Speller {
         this.beep = new Audio('assets/wav/click.mp3');
         this.io = new IO();
         if (this.options.groups == 0) {
-            this.options.groups = Math.round(Math.sqrt(this.options.symbols.length) * 2);
+            this.options.groups = Math.round(Math.sqrt(this.options.symbols.length));
         }
         this._make_grid();
         this.status = 'ready';
@@ -185,8 +185,7 @@ class Speller {
                 groups = Array.from(Array(this.options.groups).keys());
                 this._shuffle(groups);
             }
-            // Each symbol must be in exactly two groups
-            this.groups[groups.shift()].push(i);
+            // Assign symbol to group
             this.groups[groups.shift()].push(i);
         }
     }

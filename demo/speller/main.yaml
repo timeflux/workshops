@@ -28,7 +28,7 @@ graphs:
             grid:
               ratio: "1:1"
             repetitions:
-              train: 4
+              train: 8
               test: 0 # Wait until we have a good prediction
             durations:
               baseline_eyes_open: 0
