@@ -1,0 +1,18 @@
+# Instead of only one data stream, allow an arbitrary number of devices to connect simultaneously by using the configuration file in `config/hyperscanning.txt`.
+# Check the doc: https://jinja.palletsprojects.com/en/3.0.x/templates/#for
+# Get inspiration from a more complex project: https://github.com/timeflux/demos/tree/main/hyperscanning
+
+graphs:
+
+  - id: MyStream
+    nodes:
+    - id: random
+      module: timeflux.nodes.random
+      class: Random
+    - id: display
+      module: timeflux.nodes.debug
+      class: Display
+    edges:
+      - source: random
+        target: display
+    rate: 1

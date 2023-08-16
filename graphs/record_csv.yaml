@@ -1,0 +1,10 @@
+# Add a node to save the signal to a CSV file in data/dump.csv
+# Check the doc: https://doc.timeflux.io/en/stable/api/timeflux/nodes/debug/index.html#timeflux.nodes.debug.Dump
+
+graphs:
+  - id: Recorder
+    nodes:
+    - id: random
+      module: timeflux.nodes.random
+      class: Random
+

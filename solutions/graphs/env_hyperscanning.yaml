@@ -1,0 +1,16 @@
+graphs:
+
+   {% for STREAM in STREAMS.split() %}
+  - id: {{ STREAM }}
+    nodes:
+    - id: random
+      module: timeflux.nodes.random
+      class: Random
+    - id: display
+      module: timeflux.nodes.debug
+      class: Display
+    edges:
+      - source: random
+        target: display
+    rate: 1
+    {% endfor %}

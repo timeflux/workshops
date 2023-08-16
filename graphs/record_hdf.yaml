@@ -1,0 +1,64 @@
+# - Add a node to save both the signal and the events to a HDF5 file in the `data` directory.
+# - Make sure you allow enough memory to store events.
+
+# Check the documentation: https://doc.timeflux.io/en/stable/api/timeflux/nodes/hdf5/index.html#timeflux.nodes.hdf5.Save
+# You can generate events directly from the monitoring interface.
+
+graphs:
+
+  - id: Broker
+    nodes:
+      - id: broker
+        module: timeflux.nodes.zmq
+        class: Broker
+
+  - id: Signal
+    nodes:
+      - id: sine
+        module: timeflux_example.nodes.signal
+        class: Sine
+      - id: pub
+        module: timeflux.nodes.zmq
+        class: Pub
+        params:
+          topic: signal
+    edges:
+      - source: sine
+        target: pub
+    rate: 10
+
+  - id: UI
+    nodes:
+      - id: ui
+        module: timeflux_ui.nodes.ui
+        class: UI
+      - id: sub
+        module: timeflux.nodes.zmq
+        class: Sub
+        params:
+          topics: [ signal ]
+      - id: pub
+        module: timeflux.nodes.zmq
+        class: Pub
+        params:
+          topic: events
+      - id: display
+        module: timeflux.nodes.debug
+        class: Display
+    edges:
+      - source: sub:signal
+        target: ui:signal
+      - source: ui:events
+        target: display
+      - source: ui:events
+        target: pub
+    rate: 20
+
+  - id: Recorder
+    nodes:
+      - id: sub
+        module: timeflux.nodes.zmq
+        class: Sub
+        params:
+          topics: [ signal, events ]
+    rate: 1

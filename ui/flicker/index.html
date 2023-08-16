@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flicker</title>
+
+    <script src="/common/assets/js/timeflux.js"></script>
+
+    <style>
+
+      #dot {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        display: inline-block;
+        border: 5px solid blue;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .on {
+        background-color: blue;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+    <span id="dot"></span>
+  </body>
+
+  <script>
+
+    'use strict';
+
+    let io = new IO();
+    let dot = document.getElementById('dot');
+
+    load_settings().then(settings => {
+      let scheduler = new Scheduler(settings.flicker.frequency);
+      scheduler.on('start', on_start);
+      scheduler.on('tick', on_tick);
+      scheduler.on('stop', on_stop);
+      scheduler.start();
+    });
+
+    function on_start() {
+      console.log('start');
+    }
+
+    function on_stop() {
+      console.log('stop');
+    }
+
+    function on_tick(time_scheduled, time_called, ellapsed, fps) {
+      dot.classList.toggle('on');
+      io.event('tick', {
+          time_scheduled: time_scheduled,
+          time_called: time_called,
+          ellapsed: ellapsed,
+          fps: fps
+      });
+    }
+
+  </script>
+
+</html>

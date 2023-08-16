@@ -1,0 +1,69 @@
+graphs:
+
+  - id: Broker
+    nodes:
+      - id: broker
+        module: timeflux.nodes.zmq
+        class: Broker
+
+  - id: Signal
+    nodes:
+      - id: sine
+        module: timeflux_example.nodes.signal
+        class: Sine
+      - id: pub
+        module: timeflux.nodes.zmq
+        class: Pub
+        params:
+          topic: signal
+    edges:
+      - source: sine
+        target: pub
+    rate: 10
+
+  - id: UI
+    nodes:
+      - id: ui
+        module: timeflux_ui.nodes.ui
+        class: UI
+      - id: sub
+        module: timeflux.nodes.zmq
+        class: Sub
+        params:
+          topics: [ signal ]
+      - id: pub
+        module: timeflux.nodes.zmq
+        class: Pub
+        params:
+          topic: events
+      - id: display
+        module: timeflux.nodes.debug
+        class: Display
+    edges:
+      - source: sub:signal
+        target: ui:signal
+      - source: ui:events
+        target: display
+      - source: ui:events
+        target: pub
+    rate: 20
+
+  - id: Recorder
+    nodes:
+      - id: sub
+        module: timeflux.nodes.zmq
+        class: Sub
+        params:
+          topics: [ signal, events ]
+      - id: save
+        module: timeflux.nodes.hdf5
+        class: Save
+        params:
+          path: data
+          min_itemsize: 200
+    edges:
+      - source: sub:signal
+        target: save:signal
+      - source: sub:events
+        target: save:events
+    rate: 1

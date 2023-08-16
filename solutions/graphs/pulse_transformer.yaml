@@ -1,0 +1,30 @@
+graphs:
+  - nodes:
+    - id: sine
+      module: timeflux_example.nodes.signal
+      class: Sine
+      params:
+        frequency: 2
+        amplitude: 1
+        resolution: 100
+    - id: square
+      module: timeflux.nodes.ml
+      class: Pipeline
+      params:
+        mode: fit_transform
+        steps:
+          - module: estimators.pulse
+            class: Pulse
+            args:
+              threshold: 0
+    - id: ui
+      module: timeflux_ui.nodes.ui
+      class: UI
+    edges:
+      - source: sine
+        target: square
+      - source: sine
+        target: ui:sine
+      - source: square
+        target: ui:square
+    rate: 10

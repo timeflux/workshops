@@ -1,0 +1,17 @@
+# Set the seed from the command line.
+# Check the documentation: https://doc.timeflux.io/en/stable/usage/getting_started.html#environment
+
+graphs:
+  - nodes:
+    - id: random
+      module: timeflux.nodes.random
+      class: Random
+      params:
+        seed: {{ SEED }}
+    - id: display
+      module: timeflux.nodes.debug
+      class: Display
+    edges:
+      - source: random
+        target: display
+    rate: 1

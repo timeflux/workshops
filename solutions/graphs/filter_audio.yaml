@@ -1,0 +1,25 @@
+graphs:
+  - nodes:
+    - id: signals
+      module: timeflux_audio.nodes.signal
+      class: Additive
+      params:
+        frequencies: [ 220, 300 ]
+        amplitudes: [ 1, 1 ]
+        resolution: 44100
+    - id: filter
+      module: timeflux_dsp.nodes.filters
+      class: IIRFilter
+      params:
+        filter_type: bandpass
+        frequencies: [218, 222]
+        order: 3
+    - id: output
+      module: timeflux_audio.nodes.device
+      class: Output
+    edges:
+      - source: signals
+        target: filter
+      - source: filter
+        target: output
+    rate: 10

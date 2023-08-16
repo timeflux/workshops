@@ -1,0 +1,19 @@
+graphs:
+
+  - nodes:
+    - id: ui
+      module: timeflux_ui.nodes.ui
+      class: UI
+      params:
+        routes:
+          flicker: ui/flicker
+        settings:
+          flicker:
+            frequency: 1
+    - id: display
+      module: timeflux.nodes.debug
+      class: Display
+    edges:
+      - source: ui:events
+        target: display
+    rate: 10

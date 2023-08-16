@@ -1,0 +1,14 @@
+graphs:
+  - id: Recorder
+    nodes:
+    - id: random
+      module: timeflux.nodes.random
+      class: Random
+    - id: record
+      module: timeflux.nodes.debug
+      class: Dump
+      params:
+        fname: data/dump.csv
+    edges:
+    - source: random
+      target: record

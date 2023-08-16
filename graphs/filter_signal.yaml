@@ -1,0 +1,24 @@
+# - Add a notch filter to remove line noise at 50 Hz.
+# - Add a bandpass filter to keep only frequencies between 8 and 20 Hz.
+# - Ensure your are able to visualize the raw and filtered signals!
+
+# Check the documentation: https://doc.timeflux.io/projects/timeflux-dsp/en/stable/api/timeflux_dsp/nodes/filters/index.html#timeflux_dsp.nodes.filters.IIRFilter
+
+graphs:
+  - nodes:
+    - id: signals
+      module: timeflux_audio.nodes.signal
+      class: Additive
+      params:
+        frequencies: [ 4, 10, 17, 50 ]
+        amplitudes: [ 1, .5, .8, 1 ]
+        resolution: 250
+    - id: ui
+      module: timeflux_ui.nodes.ui
+      class: UI
+    edges:
+      - source: signals
+        target: ui:complex
+      - source: signals:signals
+        target: ui:signals
+    rate: 10

@@ -1,0 +1,42 @@
+graphs:
+  - nodes:
+    - id: signals
+      module: timeflux_audio.nodes.signal
+      class: Additive
+      params:
+        frequencies: [ 4, 10, 17, 50 ]
+        amplitudes: [ 1, .5, .8, 1 ]
+        resolution: 250
+    - id: notch
+      module: timeflux_dsp.nodes.filters
+      class: IIRFilter
+      params:
+        filter_type: bandstop
+        frequencies: [48, 52]
+        order: 3
+    - id: bandpass
+      module: timeflux_dsp.nodes.filters
+      class: IIRFilter
+      params:
+        filter_type: bandpass
+        frequencies: [8, 20]
+        order: 3
+    - id: ui
+      module: timeflux_ui.nodes.ui
+      class: UI
+    edges:
+      - source: signals
+        target: ui:complex
+      - source: signals:signals
+        target: ui:signals
+      - source: signals
+        target: notch
+      - source: signals
+        target: bandpass
+      - source: signals:signals
+        target: ui:signals
+      - source: notch
+        target: ui:notch
+      - source: bandpass
+        target: ui:bandpass
+    rate: 10
